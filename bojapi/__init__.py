@@ -43,11 +43,7 @@ class BaekjoonProb:
         self.sample_output = []
         for i in soup.find_all(id=re.compile("^sample-output")):
             self.sample_output.append(i.text)
-        self.correct_rate = soup.select_one("#problem-info > tbody > tr > td:nth-child(6)")
-        if self.correct_rate is not None:
-            self.correct_rate = self.correct_rate.text
-        else:
-            self.correct_rate = ""
+        self.correct_rate = soup.select_one("#problem-info > tbody > tr > td:nth-child(6)").text
         self.time_limit = float(''.join(filter(lambda s: s in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'], soup.select_one("#problem-info > tbody > tr > td:nth-child(1)").text)))
         self.memory_limit = soup.select_one("#problem-info > tbody > tr > td:nth-child(2)").text
 
