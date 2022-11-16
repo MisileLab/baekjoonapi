@@ -5,6 +5,7 @@ description = "BaekjoonAPI for Python"
 authors = ["MisileLaboratory"]
 license = "MisileLab License"
 readme = "README.md"
+packages = [{ include = "bojapi" }]
 
 [tool.poetry.dependencies]
 python = "3.11.0" # I just want support 3.11.0, you can change it
@@ -19,6 +20,3 @@ sentry-sdk = "1.11.0"
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
-packages = [
-  { include = "src" }
-]
