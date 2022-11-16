@@ -1,5 +1,6 @@
 from requests import get
 from bs4 import BeautifulSoup
+import re
 
 class BaekjoonUser:
     def __init__(self, user_name):
@@ -25,10 +26,10 @@ class BaekjoonProb:
         self.input = soup.select_one("#problem_input > p").text
         self.output = soup.select_one("#problem_output > p").text
         self.sample_input = []
-        for i in soup.select("#sample-input"):
+        for i in soup.find_all(id=re.compile("^sample-input")):
             self.sample_input.append(i.text)
         self.sample_output = []
-        for i in soup.select("#sample-output"):
+        for i in soup.find_all(id=re.compile("^sample-output")):
             self.sample_output.append(i.text)
         self.correct_rate = soup.select_one("#problem-info > tbody > tr > td:nth-child(6)").text
         self.time_limit = soup.select_one("#problem-info > tbody > tr > td:nth-child(1)").text
