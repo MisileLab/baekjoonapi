@@ -13,7 +13,7 @@ jobs:
         uses: abatilo/actions-poetry@v2.1.6
         with:
           python-version: "3.11"
-      - run: "poetry install && poetry run python test.py"
+      - run: "poetry self update --preview && poetry install && poetry run python test.py"
 
   ci-success:
     name: ci
