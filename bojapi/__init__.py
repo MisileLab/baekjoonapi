@@ -22,11 +22,7 @@ class BaekjoonProb:
     def __init__(self, number):
         soup = BeautifulSoup(get(f"https://www.acmicpc.net/problem/{number}").text, "lxml")
         self.number = number
-        self.question = soup.select_one("#problem_description > p")
-        if self.question is not None:
-            self.question = self.question.text
-        else:
-            self.question = ""
+        self.question = soup.select_one("#problem_description > p").text
         self.input = soup.select_one("#problem_input > p")
         if self.input is not None:
             self.input = self.input.text
