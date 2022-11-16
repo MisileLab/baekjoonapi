@@ -1,0 +1,26 @@
+name: build
+on: ["push", "pull_request"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      - name: Python Poetry Action
+        uses: abatilo/actions-poetry@v2.1.6
+        with:
+          python-version: "3.11"
+      - run: "poetry install && poetry run python test.py"
+
+  ci-success:
+    name: ci
+    if: ${{ success() }}
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - run: exit 0
+
+
