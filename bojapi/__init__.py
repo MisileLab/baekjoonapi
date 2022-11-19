@@ -3,7 +3,9 @@ from bs4 import BeautifulSoup
 import re
 
 class BaekjoonUser:
+    """백준 유저의 정보 클래스 (Baekjoon User Information Class)"""
     def __init__(self, user_name):
+        """유저의 정보를 가져옵니다 (Get user information)"""
         soup = BeautifulSoup(get('https://www.acmicpc.net/user/' + user_name).text, 'lxml')
         self.user_name = user_name
         self.status = soup.find('blockquote', {'class': 'no-mathjax'}).text.removesuffix('정보언어')
@@ -19,7 +21,9 @@ class BaekjoonUser:
         self.correct_q = soup.select_one('#u-solved').text
 
 class BaekjoonProb:
+    """백준 문제의 정보 클래스 (Baekjoon Problem Information Class)"""
     def __init__(self, number):
+        """문제의 정보를 가져옵니다 (Get problem information)"""
         soup = BeautifulSoup(get(f"https://www.acmicpc.net/problem/{number}").text, "lxml")
         self.number = number
         self.question = soup.select_one("#problem_description > p").text
@@ -36,7 +40,9 @@ class BaekjoonProb:
         self.memory_limit = soup.select_one("#problem-info > tbody > tr > td:nth-child(2)").text
 
 class SolvedACUser:
+    """Solved.ac 유저의 정보 클래스 (Solved.ac User Information Class)"""
     def __init__(self, name):
+        """유저의 정보를 가져옵니다 (Get user information)"""
         tiers = ["Unranked", "Bronze V", "Bronze IV", "Bronze III", "Bronze II", "Bronze I", "Silver V", "Silver IV", "Silver III", "Silver II", "Silver I", "Gold V", "Gold IV", "Gold III", "Gold II", "Gold I", "Platinum V", "Platinum I",
                  "Diamond IV", "Diamond III", "Diamond II", "Diamond I", "Ruby V", "Ruby IV", "Ruby III", "Ruby II", "Ruby I", "Master"]
         self.name = name
