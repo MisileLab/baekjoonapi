@@ -6,7 +6,8 @@ class BaekjoonUser:
     """백준 유저의 정보 클래스 (Baekjoon User Information Class)"""
     def __init__(self, user_name):
         """유저의 정보를 가져옵니다 (Get user information)"""
-        soup = BeautifulSoup(get('https://www.acmicpc.net/user/' + user_name).text, 'lxml')
+        soup = BeautifulSoup(get(f'https://www.acmicpc.net/user/{user_name}').text, 'lxml')
+
         self.user_name = user_name
         self.status = soup.find('blockquote', {'class': 'no-mathjax'}).text.removesuffix('정보언어')
         self.rank = soup.select_one("#statics > tbody > tr:nth-child(1) > td").text
@@ -29,12 +30,9 @@ class BaekjoonProb:
         self.question = soup.select_one("#problem_description > p").text
         self.input = soup.select_one("#problem_input > p").text
         self.output = soup.select_one("#problem_output > p").text
-        self.sample_input = []
-        for i in soup.find_all(id=re.compile("^sample-input")):
-            self.sample_input.append(i.text)
+        self.sample_input = [i.text for i in soup.find_all(id=re.compile("^sample-input"))]
         self.sample_output = []
-        for i in soup.find_all(id=re.compile("^sample-output")):
-            self.sample_output.append(i.text)
+        self.sample_output.extend(i.text for i in soup.find_all(id=re.compile("^sample-output")))
         self.correct_rate = soup.select_one("#problem-info > tbody > tr > td:nth-child(6)").text
         self.time_limit = float(''.join(filter(lambda s: s in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'], soup.select_one("#problem-info > tbody > tr > td:nth-child(1)").text)))
         self.memory_limit = soup.select_one("#problem-info > tbody > tr > td:nth-child(2)").text
