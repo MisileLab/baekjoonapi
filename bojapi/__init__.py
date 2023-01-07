@@ -1,13 +1,21 @@
 from requests import get
 from bs4 import BeautifulSoup
 import re
+from random_user_agent.params import HardwareType, SoftwareType, Popularity
+from random_user_agent.user_agent import UserAgent
+
+def __get_user_agent__():
+    return {"User-Agent": UserAgent(
+        hardware_types=[HardwareType.COMPUTER.value], 
+        software_type=[SoftwareType.WEB_BROWSER.value], 
+        popularity=[Popularity.POPULAR.value]
+    ).get_random_user_agent()}
 
 class BaekjoonUser:
     """백준 유저의 정보 클래스 (Baekjoon User Information Class)"""
     def __init__(self, user_name):
         """유저의 정보를 가져옵니다 (Get user information)"""
-        soup = BeautifulSoup(get(f'https://www.acmicpc.net/user/{user_name}').text, 'lxml')
-
+        soup = BeautifulSoup(get(f'https://www.acmicpc.net/user/{user_name}', headers=__get_user_agent__()).text, 'lxml')
         self.user_name = user_name
         self.status = soup.find('blockquote', {'class': 'no-mathjax'}).text.removesuffix('정보언어')
         self.rank = soup.select_one("#statics > tbody > tr:nth-child(1) > td").text
@@ -25,7 +33,7 @@ class BaekjoonProb:
     """백준 문제의 정보 클래스 (Baekjoon Problem Information Class)"""
     def __init__(self, number):
         """문제의 정보를 가져옵니다 (Get problem information)"""
-        soup = BeautifulSoup(get(f"https://www.acmicpc.net/problem/{number}").text, "lxml")
+        soup = BeautifulSoup(get(f"https://www.acmicpc.net/problem/{number}", headers=__get_user_agent__()).text, "lxml")
         self.number = number
         self.question = soup.select_one("#problem_description > p").text
         self.input = soup.select_one("#problem_input > p").text

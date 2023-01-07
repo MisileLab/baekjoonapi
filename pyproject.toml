@@ -12,9 +12,7 @@ python = ">=3.7,<4"
 requests = "2.28.1"
 bs4 = "0.0.1"
 lxml = "4.9.2"
-
-[tool.poetry.group.dev.dependencies]
-sentry-sdk = "1.12.1"
+random-user-agent = "1.0.1"
 
 [build-system]
 requires = ["poetry-core"]
