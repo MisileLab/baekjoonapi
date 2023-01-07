@@ -36,8 +36,14 @@ class BaekjoonProb:
         soup = BeautifulSoup(get(f"https://www.acmicpc.net/problem/{number}", headers=__get_user_agent__()).text, "lxml")
         self.number = number
         self.question = soup.select_one("#problem_description > p").text
-        self.input = soup.select_one("#problem_input > p").text
-        self.output = soup.select_one("#problem_output > p").text
+        if soup.select_one("#problem_input > p") is not None:
+            self.input = soup.select_one("#problem_input > p").text
+        else:
+            self.input = None
+        if soup.select_one("#problem_output > p") is not None:
+            self.output = soup.select_one("#problem_output > p").text
+        else:
+            self.output = None
         self.sample_input = [i.text for i in soup.find_all(id=re.compile("^sample-input"))]
         self.sample_output = []
         self.sample_output.extend(i.text for i in soup.find_all(id=re.compile("^sample-output")))

@@ -1,7 +1,8 @@
 [tool.poetry]
 name = "baekjoonapi"
-version = "0.1.2"
+version = "0.1.3"
 description = "BaekjoonAPI for Python"
+repository = "https://github.com/misilelab/baekjoonapi"
 authors = ["MisileLaboratory"]
 license = "MisileLab License"
 readme = "README.md"
