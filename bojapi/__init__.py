@@ -1,13 +1,13 @@
 from requests import get
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Tag
 import re
 from random_user_agent.params import HardwareType, SoftwareType, Popularity
 from random_user_agent.user_agent import UserAgent
 
 def __get_user_agent__():
     return {"User-Agent": UserAgent(
-        hardware_types=[HardwareType.COMPUTER.value], 
-        software_type=[SoftwareType.WEB_BROWSER.value], 
+        hardware_types=[HardwareType.COMPUTER.value],
+        software_type=[SoftwareType.WEB_BROWSER.value],
         popularity=[Popularity.POPULAR.value]
     ).get_random_user_agent()}
 
@@ -50,6 +50,20 @@ class BaekjoonProb:
         self.correct_rate = soup.select_one("#problem-info > tbody > tr > td:nth-child(6)").text
         self.time_limit = float(''.join(filter(lambda s: s in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'], soup.select_one("#problem-info > tbody > tr > td:nth-child(1)").text)))
         self.memory_limit = soup.select_one("#problem-info > tbody > tr > td:nth-child(2)").text
+
+class BaekjoonCompetition:
+    """백준 대회 클래스 (Baekjoon Competition Class)"""
+    def __init__(self, number: int):
+        soup = BeautifulSoup(get(f"https://www.acmicpc.net/contest/view/{number}", headers=__get_user_agent__()).text, "lxml")
+        _cache = soup.find_all("div", {"class": "page-header"}, recursive=True)[0]
+        self.number = number
+        self.name = _cache.find("h1").text.removeprefix("\n").split("\n")[0]
+        self.username = _cache.find("a").text
+        self.start = min(map(int, self.__timestamp__(_cache.find("blockquote").find_all("span", {"class": "update-local-time"}))))
+        self.stop = max(map(int, self.__timestamp__(_cache.find("blockquote").find_all("span", {"class": "update-local-time"}))))
+
+    def __timestamp__(self, a: list[Tag]):
+        return [i["data-timestamp"] for i in a]
 
 class SolvedACUser:
     """Solved.ac 유저의 정보 클래스 (Solved.ac User Information Class)"""
