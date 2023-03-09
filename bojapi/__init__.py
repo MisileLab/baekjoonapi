@@ -90,6 +90,5 @@ class SolvedACUser:
         self.rivalCount = apire["rivalCount"]
         self.reverseRivalCount = apire["reverseRivalCount"]
         self.maxStreak = apire["maxStreak"]
-        self.proUntil = apire["proUntil"]
         self.rank = apire["rank"]
 
