@@ -74,7 +74,6 @@ class SolvedACUser:
         self.name = name
         apire = get("https://solved.ac/api/v3/user/show", params={"handle": name}, headers={"Content-Type": "application/json"}).json()
         self.bio = apire["bio"]
-        self.organizations = apire["organizations"]
         self.badge = apire["badge"]
         self.background = apire["background"]
         self.profileimage = apire["profileImageUrl"]
