@@ -65,6 +65,11 @@ class BaekjoonCompetition:
     def __timestamp__(self, a: list[Tag]):
         return [i["data-timestamp"] for i in a]
 
+class SolvedACClassDecoration:
+    none = "none",
+    silver = "silver",
+    gold = "gold"
+
 class SolvedACUser:
     """Solved.ac 유저의 정보 클래스 (Solved.ac User Information Class)"""
     def __init__(self, name):
@@ -74,20 +79,26 @@ class SolvedACUser:
         self.name = name
         apire = get("https://solved.ac/api/v3/user/show", params={"handle": name}, headers={"Content-Type": "application/json"}).json()
         self.bio = apire["bio"]
-        self.badge = apire["badgeId"]
+        self.badge = apire.get("badgeId")
         self.background = apire["backgroundId"]
         self.profileimage = apire["profileImageUrl"]
-        self.solved = apire["solvedCount"]
-        self.cla = apire["class"]
+        self.solved = int(apire["solvedCount"])
+        self.vote = int(apire["voteCount"])
+        self.solvedacclass = int(apire["class"])
         self.classDecoration = apire["classDecoration"]
         self.tier = tiers[apire["tier"]]
-        self.rating = apire["rating"]
-        self.ratingByProblemsSum = apire["ratingByProblemsSum"]
-        self.ratingByClass = apire["ratingByClass"]
-        self.ratingByVoteCount = apire["ratingByVoteCount"]
-        self.exp = apire["exp"]
-        self.rivalCount = apire["rivalCount"]
-        self.reverseRivalCount = apire["reverseRivalCount"]
-        self.maxStreak = apire["maxStreak"]
-        self.rank = apire["rank"]
-
+        self.rating = int(apire["rating"])
+        self.ratingByProblemsSum = int(apire["ratingByProblemsSum"])
+        self.ratingByClass = int(apire["ratingByClass"])
+        self.ratingByVoteCount = int(apire["ratingByVoteCount"])
+        self.rivalCount = int(apire["rivalCount"])
+        self.reverseRivalCount = int(apire["reverseRivalCount"])
+        self.maxStreak = int(apire["maxStreak"])
+        self.coins = int(apire["coins"])
+        self.stardusts = int(apire["stardusts"])
+        self.joinedAt = apire["joinedAt"]
+        self.bannedUntil = apire["bannedUntil"]
+        self.proUntil = apire["proUntil"]
+        self.rank = int(apire["rank"])
+        self.isRival = apire["isRival"] == 'true'
+        self.isReverseRival = apire["isReversedRival"] == 'true'
