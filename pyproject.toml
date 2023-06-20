@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "baekjoonapi"
-version = "0.2.3"
+version = "0.2.4"
 description = "BaekjoonAPI for Python"
 repository = "https://github.com/misilelab/baekjoonapi"
 authors = ["MisileLaboratory"]
