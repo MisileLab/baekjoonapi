@@ -31,9 +31,9 @@ class BaekjoonUser:
 
 class BaekjoonProb:
     """백준 문제의 정보 클래스 (Baekjoon Problem Information Class)"""
-    def __init__(self, number):
+    def __init__(self, number, url: str = "https://www.acmicpc.net/problem/"):
         """문제의 정보를 가져옵니다 (Get problem information)"""
-        soup = BeautifulSoup(get(f"https://www.acmicpc.net/problem/{number}", headers=__get_user_agent__()).text, "lxml")
+        soup = BeautifulSoup(get(f"{url}{number}", headers=__get_user_agent__()).text, "lxml")
         self.number = number
         self.question = soup.select_one("#problem_description > p").text
         if soup.select_one("#problem_input > p") is not None:
