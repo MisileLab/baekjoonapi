@@ -11,7 +11,7 @@ packages = [{ include = "bojapi" }]
 [tool.poetry.dependencies]
 python = ">=3.7,<4"
 requests = "2.31.0"
-bs4 = "0.0.1"
+bs4 = "0.0.2"
 lxml = "5.1.0"
 random-user-agent = "1.0.1"
 
