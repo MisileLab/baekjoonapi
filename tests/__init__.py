@@ -1,4 +1,4 @@
-from bojapi import *
+from baekjoonapi import *
 
 print(SolvedACUser("misile").__dict__)
 print(BaekjoonProb(1003).__dict__)

@@ -100,5 +100,3 @@ class SolvedACUser:
         self.bannedUntil = apire["bannedUntil"]
         self.proUntil = apire["proUntil"]
         self.rank = int(apire["rank"])
-        self.isRival = apire["isRival"] == 'true'
-        self.isReverseRival = apire["isReversedRival"] == 'true'

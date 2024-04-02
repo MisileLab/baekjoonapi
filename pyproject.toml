@@ -1,21 +1,23 @@
-[tool.poetry]
+[project]
 name = "baekjoonapi"
-version = "0.2.4"
-description = "BaekjoonAPI for Python"
-repository = "https://github.com/misilelab/baekjoonapi"
-authors = ["MisileLaboratory"]
-license = "MisileLab License"
+version = "0.2.5"
+description = "baekjoonapi for python"
+authors = [
+  {name = "MisileLaboratory", email = "misileminecord@gmail.com"},
+]
+dependencies = [
+  "requests==2.31.0",
+  "bs4==0.0.2",
+  "lxml==5.2.0",
+  "random-user-agent==1.0.1",
+]
+requires-python = ">=3.8,<4"
 readme = "README.md"
-packages = [{ include = "bojapi" }]
-
-[tool.poetry.dependencies]
-python = ">=3.7,<4"
-requests = "2.31.0"
-bs4 = "0.0.2"
-lxml = "5.2.0"
-random-user-agent = "1.0.1"
+license = {text = "MisileLab License"}
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
 
+[tool.pdm]
+distribution = true
