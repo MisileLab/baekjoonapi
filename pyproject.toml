@@ -6,7 +6,7 @@ authors = [
   {name = "MisileLaboratory", email = "misileminecord@gmail.com"},
 ]
 dependencies = [
-  "requests==2.32.0",
+  "requests==2.32.2",
   "bs4==0.0.2",
   "lxml==5.2.2",
   "random-user-agent==1.0.1",
